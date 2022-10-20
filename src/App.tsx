@@ -78,7 +78,7 @@ export default function App() {
             {todos.map((todo) => {
               const { id, title, selected } = todo;
               return (
-                <li key={id}>
+                <li key={id} data-cy={`todo-${title}`}>
                   <label
                     className={selected ? "todoText" : ""}
                     htmlFor={`todoToggle${id}`}
