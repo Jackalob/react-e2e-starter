@@ -5,7 +5,7 @@ describe("todos", () => {
   // todo count values
 
   beforeEach(() => {
-    cy.visit("/");
+    cy.login();
   });
 
   it("user can add, check, and delete todos", () => {
