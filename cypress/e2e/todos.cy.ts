@@ -8,21 +8,20 @@ describe("todos", () => {
     cy.visit("/");
   });
 
-  it("add todo", () => {
+  it("user can add, check, and delete todos", () => {
     cy.findByRole("textbox", { name: /title/i }).type("TEST1").type("{enter}");
-    cy.findByText(/test1/i).should("exist");
-  });
-
-  it("remove todo", () => {
-    cy.findByRole("textbox", { name: /title/i }).type("TEST1").type("{enter}");
-    cy.wait(1000);
     cy.findByRole("textbox", { name: /title/i }).type("TEST2").type("{enter}");
-    cy.wait(1000);
 
-    cy.get('[data-cy="todo-TEST2"]').within(() =>
-      cy.findByRole("button", { name: /remove/i }).click()
-    );
+    cy.findByText(/test1/i).should("exist");
+    cy.findByText(/test2/i).should("exist");
+    cy.findByText(/total todos: 2/i).should("exist");
 
-    cy.findByText(/test2/i).should("not.exist");
+    cy.findByRole("checkbox", { name: /test2/i }).check();
+    cy.findByText(/selected todos: 1/i).should("exist");
+
+    cy.get('[data-cy="todo-TEST1"]').within(() => {
+      cy.findByRole("button", { name: /remove/i }).click();
+    });
+    cy.findByText(/total todos: 1/i).should("exist");
   });
 });
